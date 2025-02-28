@@ -1,0 +1,67 @@
+# Игнорировать каталоги сборки и артефакты
+/build/
+/out/
+/bin/
+/target/
+/.gradle/
+/.idea/
+/*.iml
+
+# Игнорировать директории и файлы настроек IDE
+.vscode/
+/*.sublime-workspace
+*.sublime-project
+
+# Игнорировать файлы логов и отчётов
+*.log
+*.tmp
+*.bak
+*.swp
+
+# Игнорировать временные файлы ОС
+.DS_Store
+Thumbs.db
+
+# Игнорировать временные файлы для Windows
+desktop.ini
+$RECYCLE.BIN/
+
+# Игнорировать Gradle Wrapper (если не хотите его коммитить)
+.gradle/wrapper/
+
+# Игнорировать личные файлы пользователя
+*.jre/
+*.env
+
+# Игнорировать сгенерированные файлы и директории
+demo/build/
+demo/.gradle/
+demo/.idea/
+demo/*.iml
+
+# Игнорировать локальные настройки Gradle
+.gradle/
+gradle-app.setting
+
+# Игнорировать скомпилированные классы
+**/*.class
+
+# Игнорировать файлы, специфичные для Gradle
+.gradle/
+gradle-app.setting
+
+# Игнорировать файлы, специфичные для IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Игнорировать файлы, специфичные для VSCode
+.vscode/
+
+# Игнорировать файлы, специфичные для macOS
+.DS_Store
+
+# Игнорировать файлы, специфичные для Windows
+Thumbs.db
+desktop.ini
