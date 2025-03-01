@@ -1,12 +1,14 @@
 package com.example.demo.service;
 
-import com.example.demo.model.Pet;
-import com.example.demo.repository.PetRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
+
+import org.springframework.stereotype.Service;
+
+import com.example.demo.model.Pet;
+import com.example.demo.repository.PetRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
