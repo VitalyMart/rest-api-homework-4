@@ -25,32 +25,51 @@ public class PetController {
     private final PetService petService;
 
     @GetMapping
-    public List<Pet> getAllPets() {
-        return petService.getAllPets();
+    public ResponseEntity<List<Pet>> getAllPets() {
+        List<Pet> pets = petService.getAllPets();
+        if (pets.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build(); // 204 No Content
+        }
+        return ResponseEntity.ok(pets); // 200 Successful operation
     }
 
     @GetMapping("/{petId}")
     public ResponseEntity<Pet> getPetById(@PathVariable Long petId) {
         return petService.getPetById(petId)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).body(null));
+                .map(ResponseEntity::ok) // 200 Successful operation
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build()); // 404 Pet not found
     }
 
     @PostMapping
-    public ResponseEntity<Pet> addPet(@RequestBody Pet pet) {
+    public ResponseEntity<Object> addPet(@RequestBody Pet pet) {
+        if (pet.getName() == null || pet.getName().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Invalid input"); // 400 Invalid input
+        }
+
         Pet createdPet = petService.createPet(pet);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdPet);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdPet); // 201 Successful operation
     }
 
     @PutMapping
-    public ResponseEntity<Pet> updatePet(@RequestBody Pet pet) {
+    public ResponseEntity<Object> updatePet(@RequestBody Pet pet) {
+        if (pet.getId() == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("Invalid ID supplied"); // 400 Invalid ID supplied
+        }
+
         Pet updatedPet = petService.updatePet(pet);
-        return ResponseEntity.ok(updatedPet);
+        return ResponseEntity.ok(updatedPet); // 200 Successful operation
     }
 
     @DeleteMapping("/{petId}")
-    public ResponseEntity<Void> deletePet(@PathVariable Long petId) {
+    public ResponseEntity<Object> deletePet(@PathVariable Long petId) {
+        if (!petService.getPetById(petId).isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Pet not found"); // 404 Pet not found
+        }
+
         petService.deletePet(petId);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.noContent().build(); // 204 No Content
     }
 }

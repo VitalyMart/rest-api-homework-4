@@ -97,12 +97,14 @@ class PetControllerTest {
     }
 
     @Test
-    void testDeletePet() throws Exception {
-        doNothing().when(petService).deletePet(1L);
+void testDeletePet() throws Exception {
+    when(petService.getPetById(1L)).thenReturn(Optional.of(pet));
+    doNothing().when(petService).deletePet(1L);
 
-        mockMvc.perform(delete("/api/v3/pet/1"))
-                .andExpect(status().isNoContent());
+    mockMvc.perform(delete("/api/v3/pet/1"))
+            .andExpect(status().isNoContent());
 
-        verify(petService, times(1)).deletePet(1L);
-    }
+    verify(petService, times(1)).deletePet(1L);
+}
+
 }
