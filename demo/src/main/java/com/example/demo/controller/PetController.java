@@ -58,6 +58,12 @@ public class PetController {
                     .body("Invalid ID supplied"); // 400 Invalid ID supplied
         }
 
+        // Проверяем, существует ли питомец с таким ID
+        if (!petService.getPetById(pet.getId()).isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Pet not found"); // 404 Pet not found
+        }
+
         Pet updatedPet = petService.updatePet(pet);
         return ResponseEntity.ok(updatedPet); // 200 Successful operation
     }
